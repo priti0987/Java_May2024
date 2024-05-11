@@ -81,7 +81,6 @@ public class UserTest {
 	public void testDeleteUserName() {
 		
 		Response response = UserEndpoints.deleteUser(this.userPayload.getUsername());
-		System.out.println(response.getStatusCode());
 		Assert.assertEquals(response.getStatusCode(),200);
 		
 	}
