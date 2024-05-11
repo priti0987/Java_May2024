@@ -13,7 +13,7 @@ public class Reverse {
 			revString =  givenString.charAt(i) +revString;
 		}
 		
-		System.out.println(revString);
+		System.out.println("revString is = "+revString);
 		
 		
 		//using string buffer
