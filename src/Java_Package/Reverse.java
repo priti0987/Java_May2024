@@ -10,7 +10,7 @@ public class Reverse {
 		
 		for(int i=0;i<=givenString.length()-1;i++)
 		{
-			revString =  givenString.charAt(i) +revString;
+	revString =  givenString.charAt(i) +revString;
 		}
 		
 		System.out.println("revString is = "+revString);
