@@ -17,9 +17,18 @@ public class Reverse {
 		
 		
 		//using string buffer
+		StringBuffer s = new StringBuffer();
+		s.append("priti");
+		s.reverse();
+		System.out.println(s);
 		
 		
 		//using string builder
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("okokno");
+		sb.reverse();
+		System.out.println(sb);
 	}
 
 }
