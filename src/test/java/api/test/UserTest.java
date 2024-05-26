@@ -1,5 +1,6 @@
 package api.test;
 
+
 import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -7,13 +8,14 @@ import com.github.javafaker.Faker;
 import io.restassured.response.*;
 import api.endpoints.UserEndpoints;
 import api.payload.User;
-
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public class UserTest {
 
 	
 	Faker faker;
 	User userPayload;
+	public Logger logger;	
 	
 	@BeforeClass
 	public void setupData() {
@@ -29,33 +31,43 @@ public class UserTest {
 		userPayload.setPassword(faker.internet().password(5,10));
 		userPayload.setPhone(faker.phoneNumber().cellPhone());
 		
+		//Logs
+		logger = LogManager.getLogger(this.getClass());
+		
 	}
 	
 	
 	@Test(priority = 1)
 	public void testPostUser() {
 	
+		logger.info("**************** Creating User *******************");
 		Response response = UserEndpoints.createUser(userPayload);
 		response.then().log().all();
 		Assert.assertEquals(response.getStatusCode(),200);
-		
+
+		logger.info("**************** User is Created *******************");
+
 	}
 	
 	@Test(priority = 2)
 	public void testGetUserByName() {
-		
+
+		logger.info("**************** Reading User Info *******************");
+
 		Response response = UserEndpoints.readUser(this.userPayload.getUsername());
 		response.then().log().all();
 		//getStatus code used in assertion and .statuscode give 200 directly
 		Assert.assertEquals(response.getStatusCode(),200);
-		
+		logger.info("**************** User Info Displayed *******************");
+
 	}
 
 	
 	@Test(priority = 3)
 	public void testUpdateUserByName() {
 		//update data using payload
-		
+		logger.info("****************  User Info Updated *******************");
+
 		userPayload.setEmail(faker.internet().safeEmailAddress());
 		userPayload.setFirstname(faker.name().firstName());
 		userPayload.setLastname(faker.name().lastName());
@@ -75,13 +87,16 @@ public class UserTest {
 		responseafterupdate.then().log().body();
 		Assert.assertEquals(responseafterupdate.getStatusCode(),200);
 		
+		logger.info("****************  User Info Updation Done *******************");
 		
 	}
 	@Test(priority = 4)
 	public void testDeleteUserName() {
-		
+		logger.info("****************  Deleteing User*******************");
+
 		Response response = UserEndpoints.deleteUser(this.userPayload.getUsername());
 		Assert.assertEquals(response.getStatusCode(),200);
+		logger.info("****************  Deleteing User Done *******************");
 		
 	}
 
