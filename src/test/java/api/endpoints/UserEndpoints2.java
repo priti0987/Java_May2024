@@ -1,6 +1,9 @@
 package api.endpoints;
 
 import static io.restassured.RestAssured.given;
+
+import java.util.ResourceBundle;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -8,52 +11,60 @@ import api.payload.User;
 /*
  * Created for perform Create , Read , Update, Delete requests the user API.
  */
-public class UserEndpoints {
+public class UserEndpoints2 {
 	
+	//method create for getting url from property file 
+	static ResourceBundle getURL(){
+		ResourceBundle routes = ResourceBundle.getBundle("routes");
+		return routes;
+	}
 	public static Response createUser(User payload){
 
-		System.out.println(Routes.post_url);
+		String post_url = getURL().getString("post_url");
 		Response response = given()
 			.contentType(ContentType.JSON)
 			.accept(ContentType.JSON)
 			.body(payload)
 		.when()
-			.post(Routes.post_url);
+			.post(post_url);
 		return response;
 	}
 
 	public static Response readUser(String userName){
-		System.out.println(Routes.get_url);
 		
-
+		String get_url = getURL().getString("get_url");
+		
 		Response response = given()
-					.pathParam("username", userName)							
-					.when()
-					.get(Routes.get_url);
+							.pathParam("username", userName)
+							
+				.when()
+					.get(get_url);
 		
 		return response;
 	}
 
 	public static Response updateUser(String userName,User payload){
 
-		System.out.println(Routes.update_url);
+		String update_url = getURL().getString("update_url");
+		
 		Response response = given()
 			.contentType(ContentType.JSON)
 			.accept(ContentType.JSON)
 			.pathParam("username", userName)
 			.body(payload)
 		.when()
-			.put(Routes.update_url);
+			.put(update_url);
 		return response;
 	}
 
 	public static Response deleteUser(String userName){
 
-		System.out.println(Routes.delete_url);
+		String delete_url = getURL().getString("delete_url");
+		
 		Response response = given()
 				.pathParam("username", userName)
 				.when()
-			.delete(Routes.delete_url);
+			.delete(delete_url);
 		return response;
 	}
 
