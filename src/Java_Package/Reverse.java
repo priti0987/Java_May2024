@@ -7,6 +7,22 @@ public class Reverse {
 		//using String
 		String givenString = "4568hjh";
 		String revString ="";
+		int number1 = 456;
+		int revNumber = 0;
+		int rem = 0;
+		System.out.println("Reversing a given number ");
+		
+		while (number1>0)
+		{
+			rem = number1%10;
+			revNumber = revNumber*10+rem;
+			number1 /=10;
+		}
+		
+		
+		System.out.println("reversed number :: "+revNumber);
+		
+		
 		
 		for(int i=0;i<=givenString.length()-1;i++)
 		{
